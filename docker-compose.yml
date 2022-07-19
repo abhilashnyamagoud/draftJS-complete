@@ -1,0 +1,45 @@
+services:
+  mymongodb:
+
+    image: "mongo"
+
+    ports:
+
+      - "27017:27017"
+
+  nodejs-server:
+
+    build:
+
+      context: ./draft-node
+
+    ports:
+
+      - "3001:3001"
+
+    container_name: server
+
+    volumes:
+
+       - ./draft-node:/usr/src/draft-project/draft-node
+       - /usr/src/draft-project/draft-node/node_modules
+
+  react-ui:
+
+    build:
+
+      context: ./draft-react
+
+    ports:
+
+      - "3000:3000"
+
+    container_name: client
+
+    stdin_open: true
+
+    volumes:
+
+       - ./draft-react:/usr/src/draft-project/draft-react
+
+       - /usr/src/draft-project/draft-react/node_modules
